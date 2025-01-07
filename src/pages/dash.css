@@ -1,0 +1,66 @@
+/* Dashboard Wrapper */
+main {
+    background: #f8fafc;
+    padding: 24px;
+  }
+  
+  /* Dashboard Header */
+  header {
+    margin-bottom: 24px;
+  }
+  
+  header h1 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #111827;
+  }
+  
+  header p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+  
+  /* Dashboard Cards */
+  .dashboard-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .dashboard-card h3 {
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  
+  .dashboard-card p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #111827;
+  }
+  
+  .dashboard-card span {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .dashboard-card span.text-green-600 {
+    color: #16a34a;
+  }
+  
+  .dashboard-card span.text-red-600 {
+    color: #dc2626;
+  }
+  

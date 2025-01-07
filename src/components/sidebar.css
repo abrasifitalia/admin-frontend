@@ -1,0 +1,120 @@
+.sidebar {
+    width: 16rem;
+    background: #fff;
+    border-right: 1px solid #e5e7eb;
+    height: 100%;
+  }
+  
+  .sidebar .logo {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937;
+  }
+  
+  .sidebar nav {
+    padding: 16px;
+  }
+  
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    color: #4b5563;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .sidebar a:hover {
+    background: #f9fafb;
+    color: #1f2937;
+  }
+  
+  .sidebar a.active {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+  
+  .sidebar a svg {
+    width: 20px;
+    height: 20px;
+  }
+  /* sidebar.css */
+.sidebar {
+  width: 250px; /* Ajustez selon vos besoins */
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 24px; /* Espacement entre le logo et le menu */
+  text-align: center; /* Centrer le logo horizontalement */
+  color: #333;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espacement vertical entre les éléments */
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacement entre l'icône et le texte */
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  color: #555;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar nav a.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.sidebar nav a:hover {
+  background-color: #e2e6ea;
+  color: #333;
+}
+
+.sidebar nav a svg {
+  width: 20px;
+  height: 20px;
+}
+/* Styles pour la barre latérale */
+.sidebar {
+  background-color: #2d3748; /* Gris foncé */
+  width: 16rem; /* Largeur de la barre latérale */
+}
+
+.sidebar-header {
+  background-color: #1a202c; /* Gris plus foncé */
+  color: white;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+}
+
+.sidebar-menu a:hover {
+  background-color: #4a5568; /* Couleur au survol */
+}
+
