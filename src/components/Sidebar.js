@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { User, ArrowLeftCircle } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { User, ArrowLeftCircle, Home, FileText, Layers, Eye, MessageCircle, Users } from 'lucide-react';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
   return (
     /* Sidebar avec Bootstrap */
 <div className="d-flex flex-column bg-dark text-white h-100">

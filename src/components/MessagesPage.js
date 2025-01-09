@@ -10,7 +10,7 @@ const MessagePage = () => {
   const fetchMessages = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/message/message/');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/message/message/`);
       setMessages(response.data);
       setLoading(false);
     } catch (error) {
@@ -22,7 +22,7 @@ const MessagePage = () => {
   // Fonction pour supprimer un message
   const deleteMessage = async (messageId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/message/message/${messageId}`);
+        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/message/message/${messageId}`);
       setMessages(messages.filter((message) => message._id !== messageId)); // Mise à jour de l'état
     } catch (error) {
       console.error('Erreur lors de la suppression du message:', error);

@@ -32,7 +32,7 @@ const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/article/article');
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/article/article`);
         setArticles(response.data);
       } catch (err) {
         setError('Erreur lors du chargement des articles.');
@@ -45,7 +45,7 @@ const [loading, setLoading] = useState(true);
   // Fonction pour supprimer un article
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/article/article/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/article/article/${id}`);
       setArticles(articles.filter((article) => article._id !== id));
     } catch (err) {
       setError('Erreur lors de la suppression de l\'article.');
@@ -58,9 +58,9 @@ const [loading, setLoading] = useState(true);
     const fetchData = async () => {
       try {
         const [articlesRes, categoriesRes, subCategoriesRes] = await Promise.all([
-          fetch("http://localhost:5000/api/article/article"),
-          fetch("http://localhost:5000/api/category/categories"),
-          fetch("http://localhost:5000/api/subcategory/subcategory"),
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/api/article/article`),
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`),
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/api/subcategory/subcategory`),
         ]);
   
         setArticles(await articlesRes.json());
@@ -192,7 +192,7 @@ const [loading, setLoading] = useState(true);
             <div className="flex-shrink-0">
               {article.image && (
                 <img
-                  src={`http://localhost:5000${article.image}`}
+                  src={`${process.env.REACT_APP_API_BASE_URL}${article.image}`}
                   onError={(e) => { e.target.src = '/path/to/default-image.jpg'; }}
                   alt={article.name}
                   className="h-48 w-full object-cover"
@@ -201,7 +201,7 @@ const [loading, setLoading] = useState(true);
               {article.video && (
                 <video controls className="h-48 w-full object-cover">
                   <source
-                    src={`http://localhost:5000${article.video}`}
+                    src={`${process.env.REACT_APP_API_BASE_URL}${article.video}`}
                     type="video/mp4"
                   />
                   Votre navigateur ne supporte pas la vidéo.

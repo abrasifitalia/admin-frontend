@@ -10,7 +10,7 @@ const UserPage = () => {
   // Fonction pour récupérer les clients
   const fetchClients = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/client/client/list', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/client/client/list`, {
         method: 'GET',
       });
       if (response.ok) {
@@ -29,7 +29,7 @@ const UserPage = () => {
   const handleDelete = async (id) => {
     try {
       console.log('ID du client à supprimer:', id);  // Vérifiez l'ID ici
-      const response = await axios.delete(`http://localhost:5000/api/client/client/${id}`);
+      const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/client/client/${id}`);
       console.log('Client supprimé:', response);
       setMessage('Client supprimé avec succès !');
       fetchClients();

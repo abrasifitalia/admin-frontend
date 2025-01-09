@@ -11,7 +11,7 @@ const CreateCategory = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/category/categories');
+           const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`);
         setCategories(response.data);
       } catch (error) {
         setMessage('Erreur lors du chargement des catégories.');
@@ -25,10 +25,10 @@ const CreateCategory = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/category/categories', { name: categoryName });
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`, { name: categoryName });
       setMessage(`Catégorie '${response.data.name}' créée avec succès!`);
       setCategoryName('');
-      const newCategories = await axios.get('http://localhost:5000/api/category/categories');
+      const newCategories = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`);
       setCategories(newCategories.data);
     } catch (error) {
       setMessage('Erreur lors de la création de la catégorie.');
@@ -37,11 +37,11 @@ const CreateCategory = () => {
 
   const handleDelete = async (categoryId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/category/categories/${categoryId}`);
+      const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories/${categoryId}`);
       if (response.status === 200) {
         setMessage('Catégorie supprimée avec succès!');
         // Mettre à jour la liste des catégories après la suppression
-        const newCategories = await axios.get('http://localhost:5000/api/category/categories');
+        const newCategories = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`);
         setCategories(newCategories.data);
       } else {
         setMessage('Échec de la suppression de la catégorie.');

@@ -10,7 +10,7 @@ const DashboardCard = () => {
   
     useEffect(() => {
       // Fetch des données depuis l'API
-      fetch('http://localhost:5000/api/dashboard-stats')
+       fetch(`${process.env.REACT_APP_API_BASE_URL}/api/dashboard-stats`)
         .then((response) => response.json())
         .then((data) => setStats(data))
         .catch((error) => console.error('Erreur de récupération des données:', error));

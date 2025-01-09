@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
+// import Sidebar from './components/Sidebar';
 import ArticlePage from './components/ArticlesPage';
 import CategoryPage from './components/CategoriesPage';
 import SubCategoryPage from './components/SubCategoryPag';

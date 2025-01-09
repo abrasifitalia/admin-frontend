@@ -27,7 +27,7 @@ const CreateArticle = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const categoryResponse = await axios.get('http://localhost:5000/api/category/categories');
+         const categoryResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`);
         setCategories(categoryResponse.data);
       } catch (err) {
         console.error('Erreur lors de la récupération des catégories:', err);
@@ -40,7 +40,7 @@ const CreateArticle = () => {
   useEffect(() => {
     if (category) {
       axios
-        .get(`http://localhost:5000/api/subcategory/subcategory/category/${category}`)
+        .get(`${process.env.REACT_APP_API_BASE_URL}/api/subcategory/subcategory/category/${category}`)
         .then((response) => {
           console.log('Subcategories fetched:', response.data);
           setSubcategories(response.data.subCategories); // Vérifiez que `subCategories` est la clé correcte
@@ -68,7 +68,7 @@ const CreateArticle = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:5000/api/article/article', formData, {
+        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/article/article`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

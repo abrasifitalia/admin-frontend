@@ -11,11 +11,11 @@ const CreateSubcategory = () => {
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/category/categories')
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`)
       .then((response) => setCategories(response.data))
       .catch((error) => console.error('Erreur lors du chargement des catégories:', error));
 
-    axios.get('http://localhost:5000/api/subcategory/subcategory')
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/subcategory/subcategory`)
       .then((response) => setSubcategories(response.data))
       .catch((error) => console.error('Erreur lors du chargement des sous-catégories:', error));
   }, []);
@@ -27,7 +27,7 @@ const CreateSubcategory = () => {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/api/subcategory/subcategory', {
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/subcategory/subcategory`, {
         name: subcategoryName,
         categoryId: selectedCategory,
       });
@@ -35,7 +35,7 @@ const CreateSubcategory = () => {
       setErrorMessage('');
       setSubcategoryName('');
       setSelectedCategory('');
-      const subcategoriesResponse = await axios.get('http://localhost:5000/api/subcategory/subcategory');
+      const subcategoriesResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/subcategory/subcategory`);
       setSubcategories(subcategoriesResponse.data);
     } catch {
       setErrorMessage('Erreur lors de l\'ajout de la sous-catégorie');
@@ -45,10 +45,10 @@ const CreateSubcategory = () => {
 
   const handleDelete = async (subcategoryId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/subcategory/subcategory/${subcategoryId}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/subcategory/subcategory/${subcategoryId}`);
       setSuccessMessage('Sous-catégorie supprimée avec succès');
       setErrorMessage('');
-      const subcategoriesResponse = await axios.get('http://localhost:5000/api/subcategory/subcategory');
+      const subcategoriesResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/subcategory/subcategory`);
       setSubcategories(subcategoriesResponse.data);
     } catch {
       setErrorMessage('Erreur lors de la suppression de la sous-catégorie');

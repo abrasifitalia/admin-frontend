@@ -7,7 +7,7 @@ const OrderPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/order/order")
+      .get(`${process.env.REACT_APP_API_BASE_URL}/api/order/order`)
       .then((response) => {
         console.log(response.data); // Afficher les données récupérées
         setOrders(response.data);
@@ -22,7 +22,7 @@ const OrderPage = () => {
 
   const handleStatusChange = (orderId, newStatus) => {
     axios
-      .put(`http://localhost:5000/api/order/order/${orderId}`, { status: newStatus })
+      .put(`${process.env.REACT_APP_API_BASE_URL}/api/order/order/${orderId}`, { status: newStatus })
       .then(() => {
         setOrders(orders.map((order) => 
           order._id === orderId ? { ...order, status: newStatus } : order
@@ -35,7 +35,7 @@ const OrderPage = () => {
 
   const handleDeleteOrder = (orderId) => {
     axios
-      .delete(`http://localhost:5000/api/order/order/${orderId}`)
+      .delete(`${process.env.REACT_APP_API_BASE_URL}/api/order/order/${orderId}`)
       .then(() => {
         // Filtrer la commande supprimée dans la liste des commandes
         setOrders(orders.filter((order) => order._id !== orderId));

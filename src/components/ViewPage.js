@@ -10,7 +10,7 @@ const ViewPage = () => {
   const fetchViews = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/view/view');  // Récupérer toutes les vues
+         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/view/view`);  // Récupérer toutes les vues
       setViews(response.data);
       setLoading(false);
     } catch (error) {
@@ -23,7 +23,7 @@ const ViewPage = () => {
   const deleteView = async (viewId) => {
     try {
       // Envoi de la requête DELETE vers l'API pour supprimer la vue
-      await axios.delete(`http://localhost:5000/api/view/view/${viewId}`);
+        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/view/view/${viewId}`);
       setViews(views.filter((view) => view._id !== viewId));  // Mise à jour de l'état en filtrant la vue supprimée
     } catch (error) {
       console.error('Erreur lors de la suppression de la vue:', error);
