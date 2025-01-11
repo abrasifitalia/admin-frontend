@@ -173,7 +173,7 @@ const OrderPage = () => {
               <div key={item._id} style={styles.article}>
                 {item.articleId?.image && (
                   <img
-                  src={`http://localhost:5000${item.articleId.image}`}
+                   src={`${process.env.REACT_APP_API_BASE_URL}${item.articleId.image}`}
                   alt={item.articleId.name}
                   style={{ width: "50px", height: "50px", borderRadius: "5px", objectFit: "cover" }}
                 />
