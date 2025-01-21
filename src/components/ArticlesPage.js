@@ -7,6 +7,7 @@ const CreateArticle = () => {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [fonctionnalite, setFonctionnalite] = useState('');
+  const [ficheTechnique, setFicheTechnique] = useState(null); // State for ficheTechnique file
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,10 +25,14 @@ const CreateArticle = () => {
     setVideo(e.target.files[0]);
   };
 
+  const handleFicheTechniqueChange = (e) => {
+    setFicheTechnique(e.target.files[0]); // Handle ficheTechnique file change
+  };
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-         const categoryResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`);
+        const categoryResponse = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/category/categories`);
         setCategories(categoryResponse.data);
       } catch (err) {
         console.error('Erreur lors de la récupération des catégories:', err);
@@ -43,15 +48,14 @@ const CreateArticle = () => {
         .get(`${process.env.REACT_APP_API_BASE_URL}/api/subcategory/subcategory/category/${category}`)
         .then((response) => {
           console.log('Subcategories fetched:', response.data);
-          setSubcategories(response.data.subCategories); // Vérifiez que `subCategories` est la clé correcte
+          setSubcategories(response.data.subCategories);
         })
         .catch((err) => {
           console.error('Error fetching subcategories:', err);
-          setSubcategories([]); // Réinitialisez si erreur
+          setSubcategories([]);
         });
     }
   }, [category]);
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,12 +67,13 @@ const CreateArticle = () => {
     formData.append('category', category);
     formData.append('subcategory', subcategory);
     formData.append('fonctionnalite', fonctionnalite);
+    if (ficheTechnique) formData.append('ficheTechnique', ficheTechnique); // Append ficheTechnique file to formData
     if (image) formData.append('image', image);
     if (video) formData.append('video', video);
 
     try {
       setLoading(true);
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/article/article`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/article/article`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -140,95 +145,103 @@ const CreateArticle = () => {
 
   return (
     <div>
-       <Navbar />
-    <div style={styles.container}>
-     
-      <h1 style={styles.title}>Créer un Article</h1>
-      {error && <p style={styles.error}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Nom de l'article :</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Description :</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            style={styles.textarea}
-          />
-        </div>
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Prix :</label>
-          <input
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Catégorie :</label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-            style={styles.select}
-          >
-            <option value="">Sélectionnez une catégorie</option>
-            {categories.map((cat) => (
-              <option key={cat._id} value={cat._id}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Sous-catégorie :</label>
-          <select
-            value={subcategory}
-            onChange={(e) => setSubcategory(e.target.value)}
-            required
-            style={styles.select}
-          >
-            <option value="">Sélectionnez une sous-catégorie</option>
-            {subcategories.map((sub) => (
-              <option key={sub._id} value={sub._id}>
-                {sub.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Fonctionnalité :</label>
-          <textarea
-            value={fonctionnalite}
-            onChange={(e) => setFonctionnalite(e.target.value)}
-            required
-            style={styles.textarea}
-          />
-        </div>
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Image :</label>
-          <input type="file" onChange={handleImageChange} style={styles.input} />
-        </div>
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Vidéo :</label>
-          <input type="file" onChange={handleVideoChange} style={styles.input} />
-        </div>
-        <button type="submit" disabled={loading} style={styles.button}>
-          {loading ? 'Création en cours...' : 'Créer l\'article'}
-        </button>
-      </form>
-    </div>
+      <Navbar />
+      <div style={styles.container}>
+        <h1 style={styles.title}>Créer un Article</h1>
+        {error && <p style={styles.error}>{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Nom de l'article :</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              style={styles.input}
+            />
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Description :</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              style={styles.textarea}
+            />
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Prix :</label>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+              style={styles.input}
+            />
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Catégorie :</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+              style={styles.select}
+            >
+              <option value="">Sélectionnez une catégorie</option>
+              {categories.map((cat) => (
+                <option key={cat._id} value={cat._id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Sous-catégorie :</label>
+            <select
+              value={subcategory}
+              onChange={(e) => setSubcategory(e.target.value)}
+              required
+              style={styles.select}
+            >
+              <option value="">Sélectionnez une sous-catégorie</option>
+              {subcategories.map((sub) => (
+                <option key={sub._id} value={sub._id}>
+                  {sub.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Fonctionnalité :</label>
+            <textarea
+              value={fonctionnalite}
+              onChange={(e) => setFonctionnalite(e.target.value)}
+              required
+              style={styles.textarea}
+            />
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Fiche Technique (optionnel, PDF) :</label>
+            <input
+              type="file"
+              accept="application/pdf" // Accept only PDF files
+              onChange={handleFicheTechniqueChange} // Handle ficheTechnique file change
+              style={styles.input}
+            />
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Image :</label>
+            <input type="file" onChange={handleImageChange} style={styles.input} />
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Vidéo :</label>
+            <input type="file" onChange={handleVideoChange} style={styles.input} />
+          </div>
+          <button type="submit" disabled={loading} style={styles.button}>
+            {loading ? 'Création en cours...' : 'Créer l\'article'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

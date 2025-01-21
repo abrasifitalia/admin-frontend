@@ -10,6 +10,7 @@ const EditArticle = () => {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [fonctionnalite, setFonctionnalite] = useState('');
+  const [ficheTechnique, setFicheTechnique] = useState(null); // State for ficheTechnique file
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -32,6 +33,7 @@ const EditArticle = () => {
         setDescription(article.description);
         setPrice(article.price);
         setFonctionnalite(article.fonctionnalite);
+        setFicheTechnique(article.ficheTechnique); // Set ficheTechnique from article data
         setCategory(article.category);
         setSubcategory(article.subcategory);
       } catch (error) {
@@ -41,11 +43,6 @@ const EditArticle = () => {
     };
     fetchArticle();
   }, [id]);
-  
-  // ... Le reste de votre code ...
-
-
-  
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -83,6 +80,10 @@ const EditArticle = () => {
     setVideo(e.target.files[0]);
   };
 
+  const handleFicheTechniqueChange = (e) => {
+    setFicheTechnique(e.target.files[0]); // Handle ficheTechnique file change
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -93,12 +94,13 @@ const EditArticle = () => {
     formData.append('category', category);
     formData.append('subcategory', subcategory);
     formData.append('fonctionnalite', fonctionnalite);
+    if (ficheTechnique) formData.append('ficheTechnique', ficheTechnique); // Append ficheTechnique file to formData
     if (image) formData.append('image', image);
     if (video) formData.append('video', video);
 
     try {
       setLoading(true);
-        const response = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/article/article/${id}`, formData, {
+      const response = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/article/article/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -244,6 +246,10 @@ const EditArticle = () => {
               required
               style={styles.textarea}
             />
+          </div>
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Fiche Technique :</label>
+            <input type="file" onChange={handleFicheTechniqueChange} style={styles.input} />
           </div>
           <div style={styles.formGroup}>
             <label style={styles.label}>Image :</label>
